@@ -83,6 +83,9 @@ html::-webkit-scrollbar {
   height: 100%;
   background: #FFFFFF;
   font-family: Inter;
+  /* Header */
+  /* Header */
+  /* Main */
 }
 .wrapper header {
   width: 100%;
@@ -795,6 +798,8 @@ html::-webkit-scrollbar {
   color: #6C5CE7;
 }
 
+/* Main */
+/* Footer */
 footer {
   padding: 80px 80px 150px 80px;
   margin-top: 90px;
@@ -1115,6 +1120,7 @@ footer .feedback form .message a span {
   text-shadow: 0px 2px 4px rgba(38, 50, 56, 0.16), 0px 4px 8px rgba(38, 50, 56, 0.08);
 }
 
+/* Footer */
 @media (max-width: 1024px) {
   .wrapper header {
     padding: 0 50px;

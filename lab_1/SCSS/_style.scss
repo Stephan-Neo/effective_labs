@@ -50,6 +50,7 @@ html::-webkit-scrollbar {
   background: #FFFFFF;
   font-family: Inter;
 
+  /* Header */
   header{
     width: 100%;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
@@ -125,6 +126,9 @@ html::-webkit-scrollbar {
       }
     }
   }
+  /* Header */
+
+  /* Main */
   main{
     padding: 80px 80px 0 80px;
     background: url("../source/Rectangle.svg") no-repeat right -50px  top -50px;
@@ -625,7 +629,9 @@ html::-webkit-scrollbar {
     }
   }
 }
+/* Main */
 
+/* Footer */
 footer{
   padding: 80px 80px 150px 80px;
   margin-top: 90px;
@@ -815,6 +821,7 @@ footer{
     }
   }
 }
+/* Footer */
 
 @media (max-width: 1024px){
   .wrapper{
