@@ -25,6 +25,9 @@ function initSlider(){
     }
 
     slides[indexActiveCard].classList.add("display");
+
+    keyListener();
+    intervalSkip();
 }
 
 function displaySlides(){
@@ -98,6 +101,66 @@ function skipBack(){
         localStorage.setItem("arrayCard", JSON.stringify(getArrayCard));
         displaySlides();
     }
+}
+
+function keyListener(){
+    document.addEventListener('keydown', function(event) {
+        if (event.code == "ArrowRight"){
+            skipForward();
+        }
+
+        if (event.code == "Space"){
+            skipForward();
+        }
+
+        if (event.code == "ArrowLeft"){
+            skipBack();
+        }
+    });
+}
+
+function intervalSkip(){
+    let leftArrow = document.querySelector(".left_arrow");
+    let rightArrow = document.querySelector(".right_arrow");
+
+    setInterval(skipForward, 6000);
+
+    leftArrow.addEventListener('click', function(e) {
+        for(var i = 1; i < 1000; i++) {
+            clearTimeout(i);
+        }
+        setInterval(skipForward, 6000);
+    });
+
+    rightArrow.addEventListener('click', function(e) {
+        for(var i = 1; i < 1000; i++) {
+            clearTimeout(i);
+        }
+        setInterval(skipForward, 6000);
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.code == "ArrowRight"){
+            for(var i = 1; i < 1000; i++) {
+                clearTimeout(i);
+            }
+            setInterval(skipForward, 6000);
+        }
+
+        if (event.code == "Space"){
+            for(var i = 1; i < 1000; i++) {
+                clearTimeout(i);
+            }
+            setInterval(skipForward, 6000);
+        }
+
+        if (event.code == "ArrowLeft"){
+            for(var i = 1; i < 1000; i++) {
+                clearTimeout(i);
+            }
+            setInterval(skipForward, 6000);
+        }
+    });
 }
 
 initSlider();
