@@ -122,21 +122,22 @@ function keyListener(){
 function intervalSkip(){
     let leftArrow = document.querySelector(".left_arrow");
     let rightArrow = document.querySelector(".right_arrow");
+    let inteval = 3000;
 
-    setInterval(skipForward, 6000);
+    setInterval(skipForward, inteval);
 
     leftArrow.addEventListener('click', function(e) {
         for(var i = 1; i < 1000; i++) {
             clearTimeout(i);
         }
-        setInterval(skipForward, 6000);
+        setInterval(skipForward, inteval);
     });
 
     rightArrow.addEventListener('click', function(e) {
         for(var i = 1; i < 1000; i++) {
             clearTimeout(i);
         }
-        setInterval(skipForward, 6000);
+        setInterval(skipForward, inteval);
     });
 
     document.addEventListener('keydown', function(event) {
@@ -144,21 +145,21 @@ function intervalSkip(){
             for(var i = 1; i < 1000; i++) {
                 clearTimeout(i);
             }
-            setInterval(skipForward, 6000);
+            setInterval(skipForward, inteval);
         }
 
         if (event.code == "Space"){
             for(var i = 1; i < 1000; i++) {
                 clearTimeout(i);
             }
-            setInterval(skipForward, 6000);
+            setInterval(skipForward, inteval);
         }
 
         if (event.code == "ArrowLeft"){
             for(var i = 1; i < 1000; i++) {
                 clearTimeout(i);
             }
-            setInterval(skipForward, 6000);
+            setInterval(skipForward, inteval);
         }
     });
 }
