@@ -1,165 +1,105 @@
-function initSlider(){
-    let slides = document.querySelectorAll(".card");
-    let numberSlides = slides.length;
-
-    if(!localStorage.getItem("arrayCard")){
-        let arrayCard = [];
-        for(i = 0; i < numberSlides; i++){
-            if(i == 0){
-                arrayCard.push(1);
-                slides[0].classList.add("display");
-            }else{
-                arrayCard.push(0);
-            }
-        }
-        localStorage.setItem("arrayCard", JSON.stringify(arrayCard));
+function initSlider() {
+    if (!localStorage.getItem("indexActiveCard")) {
+        localStorage.setItem("indexActiveCard", JSON.stringify(0));
+        displaySlides();
     }
 
-    let getArrayCard = JSON.parse(localStorage.getItem("arrayCard"));
-
-    let indexActiveCard;
-    for(i = 0; i < numberSlides; i++){
-        if(getArrayCard[i] != 0){
-            indexActiveCard = i;
-        };
-    }
-
-    slides[indexActiveCard].classList.add("display");
-
+    displaySlides();
     keyListener();
     intervalSkip();
 }
 
-function displaySlides(){
+function displaySlides() {
     let slides = document.querySelectorAll(".card");
     let numberSlides = slides.length;
-    let getArrayCard = JSON.parse(localStorage.getItem("arrayCard"));
+    let indexActiveCard = localStorage.getItem("indexActiveCard")
 
-    let indexActiveCard;
-    for(i = 0; i < numberSlides; i++){
-        if(getArrayCard[i] != 0){
-            indexActiveCard = i;
-        };
-    }
-
-    for(i = 0; i < numberSlides; i++){
+    for (i = 0; i < numberSlides; i++) {
         slides[i].classList.remove("display");
     }
 
     slides[indexActiveCard].classList.add("display");
 }
 
-function skipForward(){
+function skipForward() {
     let slides = document.querySelectorAll(".card");
     let numberSlides = slides.length;
-    let getArrayCard = JSON.parse(localStorage.getItem("arrayCard"));
+    let indexActiveCard = localStorage.getItem("indexActiveCard")
 
-    let indexActiveCard;
-    for(i = 0; i < numberSlides; i++){
-        if(getArrayCard[i] != 0){
-            indexActiveCard = i;
-        };
-    }
-
-    getArrayCard.fill(0);
-
-    if(indexActiveCard == numberSlides - 1){
-        getArrayCard[0] = 1;
-        localStorage.setItem("arrayCard", JSON.stringify(getArrayCard));
+    if (indexActiveCard == numberSlides - 1) {
+        indexActiveCard = 0;
+        localStorage.setItem("indexActiveCard", JSON.stringify(indexActiveCard));
         displaySlides();
+        return;
     }
-
-    else{
-        getArrayCard[indexActiveCard + 1] = 1;
-        localStorage.setItem("arrayCard", JSON.stringify(getArrayCard));
-        displaySlides();
-    }
+    indexActiveCard++;
+    localStorage.setItem("indexActiveCard", JSON.stringify(indexActiveCard));
+    displaySlides();
 }
 
-function skipBack(){
+function skipBack() {
     let slides = document.querySelectorAll(".card");
     let numberSlides = slides.length;
-    let getArrayCard = JSON.parse(localStorage.getItem("arrayCard"));
+    let indexActiveCard = localStorage.getItem("indexActiveCard")
 
-    let indexActiveCard;
-    for(i = 0; i < numberSlides; i++){
-        if(getArrayCard[i] != 0){
-            indexActiveCard = i;
-        };
-    }
-
-    getArrayCard.fill(0);
-
-    if(indexActiveCard == 0){
-        getArrayCard[numberSlides - 1] = 1;
-        localStorage.setItem("arrayCard", JSON.stringify(getArrayCard));
+    if (indexActiveCard == 0) {
+        indexActiveCard = numberSlides - 1;
+        localStorage.setItem("indexActiveCard", JSON.stringify(indexActiveCard));
         displaySlides();
+        return;
     }
-
-    else{
-        getArrayCard[indexActiveCard - 1] = 1;
-        localStorage.setItem("arrayCard", JSON.stringify(getArrayCard));
-        displaySlides();
-    }
+    indexActiveCard--;
+    localStorage.setItem("indexActiveCard", JSON.stringify(indexActiveCard));
+    displaySlides();
 }
 
-function keyListener(){
-    document.addEventListener('keydown', function(event) {
-        if (event.code == "ArrowRight"){
+function keyListener() {
+    document.addEventListener('keydown', function (event) {
+        if (event.code == "ArrowRight") {
             skipForward();
         }
 
-        if (event.code == "Space"){
+        if (event.code == "Space") {
             skipForward();
         }
 
-        if (event.code == "ArrowLeft"){
+        if (event.code == "ArrowLeft") {
             skipBack();
         }
     });
 }
 
-function intervalSkip(){
+function intervalSkip() {
     let leftArrow = document.querySelector(".left_arrow");
     let rightArrow = document.querySelector(".right_arrow");
-    let inteval = 3000;
+    let interval = 3000;
 
-    setInterval(skipForward, inteval);
+    let intervalTime = setInterval(skipForward, interval);
 
-    leftArrow.addEventListener('click', function(e) {
-        for(var i = 1; i < 1000; i++) {
-            clearTimeout(i);
-        }
-        setInterval(skipForward, inteval);
+    leftArrow.addEventListener('click', function (e) {
+        clearInterval(intervalTime);
+        intervalTime = setInterval(skipForward, interval);
     });
 
-    rightArrow.addEventListener('click', function(e) {
-        for(var i = 1; i < 1000; i++) {
-            clearTimeout(i);
-        }
-        setInterval(skipForward, inteval);
+    rightArrow.addEventListener('click', function (e) {
+        clearInterval(intervalTime);
+        intervalTime = setInterval(skipForward, interval);
     });
 
-    document.addEventListener('keydown', function(event) {
-        if (event.code == "ArrowRight"){
-            for(var i = 1; i < 1000; i++) {
-                clearTimeout(i);
-            }
-            setInterval(skipForward, inteval);
+    document.addEventListener('keydown', function (event) {
+        if (event.code == "ArrowRight") {
+            clearInterval(intervalTime);
+            intervalTime = setInterval(skipForward, interval);
         }
 
-        if (event.code == "Space"){
-            for(var i = 1; i < 1000; i++) {
-                clearTimeout(i);
-            }
-            setInterval(skipForward, inteval);
+        if (event.code == "Space") {
+            clearInterval(intervalTime);
+            intervalTime = setInterval(skipForward, interval);
         }
 
-        if (event.code == "ArrowLeft"){
-            for(var i = 1; i < 1000; i++) {
-                clearTimeout(i);
-            }
-            setInterval(skipForward, inteval);
+        if (event.code == "ArrowLeft") {
+            clearInterval(intervalTime);
+            intervalTime = setInterval(skipForward, interval);
         }
     });
 }
