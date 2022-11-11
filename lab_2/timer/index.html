@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timer</title>
+    <link rel="shortcut icon" href=source/icon.ico>
+    <link rel="stylesheet" media="all" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="timer">
+        <div class="setTime">
+            <div>
+                <button class="oneMinute" onclick="clickOneMinute()">1 мин</button>
+            </div>
+            <div>
+                <button class="fiveMinute" onclick="clickFiveMinute()">5 мин</button>
+            </div>
+            <div>
+                <button class="tenMinute" onclick="clickTenMinute()">10 мин</button>
+            </div>
+        </div>
+        <div class="inputTime">
+            <label>
+                <input type="number" class="minute" placeholder="Minute">
+            </label>
+            <img src="source/colon.ico" alt="">
+            <label>
+                <input type="number" class="seconds" placeholder="Seconds">
+            </label>
+        </div>
+        <div class="timerControl">
+            <div class="start">
+                <img src="source/start.ico" alt="">
+            </div>
+            <div class="stop">
+                <img src="source/stop.ico" alt="">
+            </div>
+            <div class="reset">
+                <img src="source/reset.ico" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+</html>

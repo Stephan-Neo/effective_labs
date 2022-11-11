@@ -1,0 +1,148 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus, :active {
+    outline: none;
+}
+
+a:focus, a:active {
+    outline: none;
+}
+
+nav, footer, header, aside {
+    display: block;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+/*--------------------*/
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.timer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timerControl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.timerControl img {
+    width: 80px;
+}
+
+.timerControl img:hover {
+    cursor: pointer;
+}
+
+.inputTime {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inputTime img {
+    width: 50px;
+    height: 50px;
+    transform: rotate(90deg);
+}
+
+.inputTime input {
+    border: 2px solid rgba(41, 130, 210, 0.56);
+    border-radius: 30px;
+    padding: 20px;
+    width: 300px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.setTime {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.setTime button {
+    width: 100%;
+    height: 100%;
+    background: rgba(241, 155, 85, 0.63);
+    font-size: 30px;
+    padding: 30px;
+    border: 2px solid rgba(41, 130, 210, 0.56);
+    border-radius: 30px;
+}
+
+.setTime > button:hover {
+    cursor: pointer;
+}
