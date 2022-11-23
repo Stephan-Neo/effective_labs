@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 function MainLayout(): ReactElement {
   const Wrapper = styled.div`
@@ -25,6 +25,7 @@ function MainLayout(): ReactElement {
 
   const Content = styled.div`
     height: 100%;
+    width: 100%;
   `;
 
   const HeaderLink = styled(NavLink)`
@@ -66,7 +67,9 @@ function MainLayout(): ReactElement {
     <Wrapper>
       <Header>
         <div>
-          <LogoHeader src="/marvel_logo.svg" alt="" />
+          <Link to="/">
+            <LogoHeader src="/marvel_logo.svg" alt="" />
+          </Link>
         </div>
         <div>
           <HeaderLink to="characters">Characters</HeaderLink>

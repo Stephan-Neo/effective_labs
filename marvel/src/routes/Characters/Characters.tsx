@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react';
+import CharactersStore from '../../stores/CharactersStore';
+import Card from '../../components/Card';
 
 function Characters(): ReactElement {
   return (
     <>
-      <div>
-        <p>Characters</p>
-      </div>
+      {CharactersStore.characters.map((character) => (
+        <Card {...character} />
+      ))}
     </>
   );
 }
