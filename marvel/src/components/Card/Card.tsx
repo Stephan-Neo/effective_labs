@@ -7,7 +7,8 @@ import AppStore from '../../stores/AppStore';
 function Card(character: Side): ReactElement {
   const { title, description, urlImage, id } = character;
 
-  const WrapperCard = styled.div`
+  const WrapperCard = styled.div<{ isDark: boolean }>`
+    background-color: ${({ isDark }) => (isDark ? '#21262f' : 'white')};
     display: flex;
     flex-direction: column;
     -webkit-box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
@@ -15,12 +16,12 @@ function Card(character: Side): ReactElement {
     box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
   `;
 
-  const Title = styled.div<{ isDark: boolean }>`
+  const Title = styled.div`
     display: flex;
     flex-direction: column;
     font-size: 30px;
     margin-bottom: 10px;
-    color: ${({ isDark }) => (isDark ? 'rgb(255, 20, 255)' : 'red')};
+    color: red;
     font-weight: 800;
   `;
 
@@ -35,16 +36,17 @@ function Card(character: Side): ReactElement {
     padding: 20px;
   `;
 
-  const Description = styled.div`
+  const Description = styled.div<{ isDark: boolean }>`
     display: flex;
     flex-direction: column;
+    color: ${({ isDark }) => (isDark ? 'white' : 'black')};
   `;
   return (
-    <WrapperCard key={id}>
+    <WrapperCard key={id} isDark={AppStore.isDark}>
       <Image />
       <Info>
-        <Title isDark={AppStore.isDark}>{title}</Title>
-        <Description>{description}</Description>
+        <Title>{title}</Title>
+        <Description isDark={AppStore.isDark}>{description}</Description>
       </Info>
     </WrapperCard>
   );

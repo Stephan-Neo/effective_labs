@@ -2,14 +2,14 @@ import { action, makeObservable, observable } from 'mobx';
 
 class AppStore {
   @observable
-  isDark: boolean = false;
+  isDark: boolean = true;
 
   constructor() {
     makeObservable(this);
   }
 
   @action
-  setProfile = (isDark: boolean) => {
+  setTheme = (isDark: boolean) => {
     this.isDark = isDark;
   };
 }

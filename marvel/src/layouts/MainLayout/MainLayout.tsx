@@ -1,23 +1,25 @@
 import React, { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { setLanguage } from '../../localization';
+import AppStore from '../../stores/AppStore';
 
 function MainLayout(): ReactElement {
   const { t } = useTranslation();
-  const Wrapper = styled.div`
+  const Wrapper = styled.div<{ isDark: boolean }>`
     width: 100%;
     height: 100%;
-    background: rgb(255, 255, 255);
+    background-color: ${({ isDark }) => (isDark ? '#303845' : 'white')};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   `;
 
-  const Header = styled.div`
+  const Header = styled.div<{ isDark: boolean }>`
     padding: 20px 30px;
-    background: rgb(255, 0, 0);
+    background-color: ${({ isDark }) => (isDark ? '#303845' : 'red')};
     font-size: 30px;
     color: white;
     display: flex;
@@ -67,7 +69,6 @@ function MainLayout(): ReactElement {
     border-radius: 10px;
     color: ${({ isActive }) => (isActive === 'enUS' ? 'white' : 'black')};
     background: ${({ isActive }) => (isActive === 'enUS' ? 'black' : 'white')};
-  \` ;
   `;
 
   const Navigate = styled.div`
@@ -75,12 +76,25 @@ function MainLayout(): ReactElement {
     flex-direction: row;
   `;
 
+  const ChangeTheme = styled.div<{ isDark: boolean }>`
+    display: flex;
+    margin-left: 15px;
+    flex-direction: row;
+    width: 40px;
+    height: 40px;
+    background: url(${({ isDark }) => (isDark ? './sun.ico' : './moon.ico')})
+      100% 5% / cover no-repeat;
+    :hover {
+      cursor: pointer;
+    }
+  `;
+
   const LogoFooter = styled.img`
     width: 200px;
   `;
 
-  const Footer = styled.div`
-    background: rgb(136, 136, 136);
+  const Footer = styled.div<{ isDark: boolean }>`
+    background-color: ${({ isDark }) => (isDark ? '#303845' : 'red')};
     height: 100px;
     display: flex;
     flex-direction: row;
@@ -100,8 +114,8 @@ function MainLayout(): ReactElement {
     }
   `;
   return (
-    <Wrapper>
-      <Header>
+    <Wrapper isDark={AppStore.isDark}>
+      <Header isDark={AppStore.isDark}>
         <div>
           <Link to="/">
             <LogoHeader src="/marvel_logo.svg" alt="" />
@@ -127,12 +141,20 @@ function MainLayout(): ReactElement {
               EN
             </ButtonLanguageEu>
           </ChangeLanguage>
+          <ChangeTheme
+            isDark={AppStore.isDark}
+            onClick={() =>
+              AppStore.isDark
+                ? AppStore.setTheme(false)
+                : AppStore.setTheme(true)
+            }
+          />
         </Navigate>
       </Header>
       <Content>
         <Outlet />
       </Content>
-      <Footer>
+      <Footer isDark={AppStore.isDark}>
         <LogoFooter src="/marvel_logo.svg" alt="" />
         <div>
           <p>{t('byMarvel')}</p>
@@ -152,4 +174,4 @@ function MainLayout(): ReactElement {
   );
 }
 
-export default MainLayout;
+export default observer(MainLayout);
