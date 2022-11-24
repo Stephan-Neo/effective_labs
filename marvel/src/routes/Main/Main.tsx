@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 function Main(): ReactElement {
+  const { t } = useTranslation();
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -10,9 +12,16 @@ function Main(): ReactElement {
     font-weight: 800;
   `;
 
+  const Image = styled.img`
+    width: 400px;
+    height: 400px;
+    margin-top: 50px;
+  `;
+
   return (
     <Wrapper>
-      Website about the heroes of the comic book and the series from Marvel
+      {t('mainText')}
+      <Image src="./imageCards/Characters/SpiderMan.webp" />
     </Wrapper>
   );
 }
