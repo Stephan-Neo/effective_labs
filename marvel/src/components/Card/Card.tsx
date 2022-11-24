@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 import { Side } from '../../types/side';
+import AppStore from '../../stores/AppStore';
 
 function Card(character: Side): ReactElement {
   const { title, description, urlImage, id } = character;
@@ -13,12 +15,12 @@ function Card(character: Side): ReactElement {
     box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
   `;
 
-  const Title = styled.div`
+  const Title = styled.div<{ isDark: boolean }>`
     display: flex;
     flex-direction: column;
     font-size: 30px;
     margin-bottom: 10px;
-    color: rgb(255, 0, 0);
+    color: ${({ isDark }) => (isDark ? 'rgb(255, 20, 255)' : 'red')};
     font-weight: 800;
   `;
 
@@ -41,11 +43,11 @@ function Card(character: Side): ReactElement {
     <WrapperCard key={id}>
       <Image />
       <Info>
-        <Title>{title}</Title>
+        <Title isDark={AppStore.isDark}>{title}</Title>
         <Description>{description}</Description>
       </Info>
     </WrapperCard>
   );
 }
 
-export default Card;
+export default observer(Card);

@@ -1,8 +1,10 @@
 import React, { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 
 function CardsLayout(): ReactElement {
+  const { t } = useTranslation();
   const Wrapper = styled.div`
     height: 85%;
     padding: 20px;
@@ -46,15 +48,17 @@ function CardsLayout(): ReactElement {
   `;
   return (
     <>
-      <Search>
-        <Input />
-        <Button placeholder="">
-          <p>Search</p>
-        </Button>
-      </Search>
-      <Wrapper>
-        <Outlet />
-      </Wrapper>
+      <>
+        <Search>
+          <Input type="text" placeholder={t('search') || 'seacrh'} />
+          <Button>
+            <p>{t('search')}</p>
+          </Button>
+        </Search>
+        <Wrapper>
+          <Outlet />
+        </Wrapper>
+      </>
     </>
   );
 }
