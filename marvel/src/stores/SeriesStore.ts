@@ -1,4 +1,4 @@
-import { observable, makeObservable } from 'mobx';
+import { observable, makeObservable, action } from 'mobx';
 
 // Types
 import { Side } from '../types/side';
@@ -31,6 +31,13 @@ class SeriesStore {
       description: 'Thor: Love and Thunder'
     }
   ];
+
+  @action
+  getSerie = (id: string) => {
+    return this.series.filter((ch) => {
+      return ch.id === id;
+    });
+  };
 
   constructor() {
     makeObservable(this);

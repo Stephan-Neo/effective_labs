@@ -1,4 +1,4 @@
-import { observable, makeObservable } from 'mobx';
+import { observable, makeObservable, action } from 'mobx';
 
 // Types
 import { Side } from '../types/side';
@@ -31,6 +31,13 @@ class ComicsStore {
       description: 'X-Men'
     }
   ];
+
+  @action
+  getComic = (id: string) => {
+    return this.comics.filter((ch) => {
+      return ch.id === id;
+    });
+  };
 
   constructor() {
     makeObservable(this);

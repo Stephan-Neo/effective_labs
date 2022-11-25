@@ -82,7 +82,10 @@ function MainLayout(): ReactElement {
     flex-direction: row;
     width: 40px;
     height: 40px;
-    background: url(${({ isDark }) => (isDark ? './sun.ico' : './moon.ico')})
+    background: url(${({ isDark }) =>
+        isDark
+          ? 'https://gtsk.fun/test/sun.ico'
+          : 'https://gtsk.fun/test/moon.ico'})
       100% 5% / cover no-repeat;
     :hover {
       cursor: pointer;
