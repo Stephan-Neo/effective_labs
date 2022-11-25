@@ -1,1 +1,3 @@
-.idea/
+.idea
+marvel/node_modules
+marvel/dist
