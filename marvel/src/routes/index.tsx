@@ -10,6 +10,7 @@ import CharacterDetails from './Characters/CharacterDetails';
 import ComicDetails from './Comics/ComicDetails';
 import SerieDetails from './Series/SerieDetails/SerieDetails';
 
+
 function Routes(): ReactElement {
   return (
     <CRoutes>
