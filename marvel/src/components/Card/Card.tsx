@@ -2,15 +2,16 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { Side } from '../../types/side';
 import AppStore from '../../stores/AppStore';
+import { Character } from '../../types/character';
 
-function Card(character: Side): ReactElement {
-  const { title, description, urlImage, id } = character;
+function Card(character: Character): ReactElement {
+  const { name, description, id, thumbnail } = character;
 
   const LinkDetails = styled(Link)<{ isDark: boolean }>`
     background-color: ${({ isDark }) => (isDark ? '#21262f' : 'white')};
     display: flex;
+    height: 400px;
     flex-direction: column;
     -webkit-box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
@@ -27,14 +28,22 @@ function Card(character: Side): ReactElement {
   `;
 
   const Image = styled.div`
-    height: 60%;
-    background: url(${urlImage}) 100% 5% / cover no-repeat;
+    height: 200px;
+    background: url(${`${thumbnail.path}.${thumbnail.extension}`}) 5% / cover
+      no-repeat;
     display: flex;
     flex-direction: column;
   `;
 
   const Info = styled.div`
     padding: 20px;
+    overflow: scroll;
+    height: 200px;
+    ::-webkit-scrollbar {
+      display: none;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   `;
 
   const Description = styled.div<{ isDark: boolean }>`
@@ -43,10 +52,10 @@ function Card(character: Side): ReactElement {
     color: ${({ isDark }) => (isDark ? 'white' : 'black')};
   `;
   return (
-    <LinkDetails to={id} key={id} isDark={AppStore.isDark}>
+    <LinkDetails to={`${id}`} key={id} isDark={AppStore.isDark}>
       <Image />
       <Info>
-        <Title>{title}</Title>
+        <Title>{name}</Title>
         <Description isDark={AppStore.isDark}>{description}</Description>
       </Info>
     </LinkDetails>

@@ -1,6 +1,4 @@
-const envs = import.meta.env;
-
 export default {
-  apiKey: envs.VITE_API_KEY,
-  baseApiUrl: envs.VITE_BASE_API_URL
+  apiKey: '05c702b034a954f8ea1931b5065fb769',
+  baseApiUrl: 'https://gateway.marvel.com'
 };

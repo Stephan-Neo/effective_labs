@@ -10,7 +10,7 @@ function SerieDetails(): ReactElement {
 
   const serie: Side = SeriesStore.getSerie(id || '')[0];
 
-  return <Details {...serie} />;
+  return <></>;
 }
 
 export default observer(SerieDetails);

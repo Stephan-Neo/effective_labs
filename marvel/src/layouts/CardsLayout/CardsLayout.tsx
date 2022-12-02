@@ -48,17 +48,15 @@ function CardsLayout(): ReactElement {
   `;
   return (
     <>
-      <>
-        <Search>
-          <Input type="text" placeholder={t('search') || 'seacrh'} />
-          <Button>
-            <p>{t('search')}</p>
-          </Button>
-        </Search>
-        <Wrapper>
-          <Outlet />
-        </Wrapper>
-      </>
+      <Search>
+        <Input type="text" placeholder={t('search') || 'seacrh'} />
+        <Button>
+          <p>{t('search')}</p>
+        </Button>
+      </Search>
+      <Wrapper>
+        <Outlet />
+      </Wrapper>
     </>
   );
 }

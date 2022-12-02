@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { Side } from '../../types/side';
 import AppStore from '../../stores/AppStore';
+import { Character } from '../../types/character';
+import appStore from '../../stores/AppStore';
 
-function Details(ob: Side): ReactElement {
+function Details(ob: Character): ReactElement {
   const { t } = useTranslation();
-  const { title, urlImage, description } = ob;
+  const { name, description, thumbnail } = ob;
+  const comics = appStore.comicsLink;
+  const series = appStore.seriesLink;
 
   const Wrapepr = styled.div`
     color: white;
@@ -20,8 +23,9 @@ function Details(ob: Side): ReactElement {
 
   const Image = styled.div`
     width: 100%;
-    height: 60%;
-    background: url(${`.${urlImage}`}) 100% 5% / cover no-repeat;
+    height: 600px;
+    background: url(${`${thumbnail.path}.${thumbnail.extension}`}) 5% / cover
+      no-repeat;
   `;
 
   const TitleMain = styled.div`
@@ -45,6 +49,7 @@ function Details(ob: Side): ReactElement {
 
   const MainPart = styled.div`
     width: 50%;
+    margin-right: 30px;
   `;
 
   const Description = styled.div<{ isDark: boolean }>`
@@ -57,11 +62,12 @@ function Details(ob: Side): ReactElement {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    margin-right: 30px;
   `;
 
   const CLink = styled(Link)`
     color: #0984e3;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 20px;
   `;
   return (
@@ -69,25 +75,23 @@ function Details(ob: Side): ReactElement {
       <Image />
       <Container>
         <MainPart>
-          <TitleMain>{title}</TitleMain>
+          <TitleMain>{name}</TitleMain>
           <Description isDark={AppStore.isDark}>{description}</Description>
         </MainPart>
         <div>
           <Title>{t('comics')}</Title>
           <LinkContainer>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
+            {comics.map((item) => (
+              <CLink to="/characters">{item.name}</CLink>
+            ))}
           </LinkContainer>
         </div>
         <div>
           <Title>{t('series')}</Title>
           <LinkContainer>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
+            {series.map((item) => (
+              <CLink to="/characters">{item.name}</CLink>
+            ))}
           </LinkContainer>
         </div>
       </Container>

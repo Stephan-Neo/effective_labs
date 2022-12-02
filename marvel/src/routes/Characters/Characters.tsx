@@ -1,15 +1,19 @@
-import React, { ReactElement } from 'react';
-import CharactersStore from '../../stores/CharactersStore';
+import React, { ReactElement, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import charactersStore from '../../stores/CharactersStore';
 import Card from '../../components/Card';
 
 function Characters(): ReactElement {
+  useEffect(() => {
+    charactersStore?.getCharacters();
+  }, []);
   return (
     <>
-      {CharactersStore.characters.map((character) => (
-        <Card {...character} />
+      {charactersStore.characters.map((data) => (
+        <Card {...data} />
       ))}
     </>
   );
 }
 
-export default Characters;
+export default observer(Characters);

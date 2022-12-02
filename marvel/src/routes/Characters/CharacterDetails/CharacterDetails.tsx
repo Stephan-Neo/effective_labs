@@ -1,16 +1,22 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import CharactersStore from '../../../stores/CharactersStore';
+import charactersStore from '../../../stores/CharactersStore';
 import Details from '../../../components/Details/Details';
-import { Side } from '../../../types/side';
 
 function CharacterDetails(): ReactElement {
   const { id } = useParams();
+  useEffect(() => {
+    charactersStore?.getCharacter(Number(id));
+  }, []);
 
-  const character: Side = CharactersStore.getCharacter(id || '')[0];
-
-  return <Details {...character} />;
+  return (
+    <>
+      {charactersStore.character.map((data) => (
+        <Details {...data} />
+      ))}
+    </>
+  );
 }
 
 export default observer(CharacterDetails);

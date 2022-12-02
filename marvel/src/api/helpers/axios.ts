@@ -1,10 +1,11 @@
 import axios from 'axios';
-
-// Config
-import envs from 'config/environments';
+import environments from '../../config/environments';
 
 const instance = axios.create({
-  baseURL: envs.baseApiUrl
+  baseURL: environments.baseApiUrl,
+  params: {
+    apikey: environments.apiKey
+  }
 });
 
 export default instance;
