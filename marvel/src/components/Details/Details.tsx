@@ -75,19 +75,21 @@ function Details(ob: Side): ReactElement {
         <div>
           <Title>{t('comics')}</Title>
           <LinkContainer>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
+            <CLink to="/comics/1">Star Wars</CLink>
+            <CLink to="/comics/2">Fantastic Four</CLink>
+            <CLink to="/comics/3">The Amazing Spider-Man</CLink>
+            <CLink to="/comics/4">X-Men</CLink>
           </LinkContainer>
         </div>
         <div>
           <Title>{t('series')}</Title>
           <LinkContainer>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
-            <CLink to="/characters">Link</CLink>
+            <CLink to="/series/1">Black Panther: Wakanda Forever</CLink>
+            <CLink to="/series/2">Spider-Man: No Way Home</CLink>
+            <CLink to="/series/3">
+              Doctor Strange in the Multiverse of Madness
+            </CLink>
+            <CLink to="/series/4">Thor: Love and Thunder</CLink>
           </LinkContainer>
         </div>
       </Container>
