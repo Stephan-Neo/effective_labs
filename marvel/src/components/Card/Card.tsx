@@ -1,13 +1,15 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
+import { Link } from 'react-router-dom';
+
 import { Side } from '../../types/side';
 import AppStore from '../../stores/AppStore';
 
 function Card(character: Side): ReactElement {
   const { title, description, urlImage, id } = character;
 
-  const WrapperCard = styled.div<{ isDark: boolean }>`
+  const LinkDetails = styled(Link)<{ isDark: boolean }>`
     background-color: ${({ isDark }) => (isDark ? '#21262f' : 'white')};
     display: flex;
     flex-direction: column;
@@ -42,13 +44,13 @@ function Card(character: Side): ReactElement {
     color: ${({ isDark }) => (isDark ? 'white' : 'black')};
   `;
   return (
-    <WrapperCard key={id} isDark={AppStore.isDark}>
+    <LinkDetails to={id} key={id} isDark={AppStore.isDark}>
       <Image />
       <Info>
         <Title>{title}</Title>
         <Description isDark={AppStore.isDark}>{description}</Description>
       </Info>
-    </WrapperCard>
+    </LinkDetails>
   );
 }
 

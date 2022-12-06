@@ -1,4 +1,4 @@
-import { observable, makeObservable } from 'mobx';
+import { observable, makeObservable, action } from 'mobx';
 
 // Types
 import { Side } from '../types/side';
@@ -67,6 +67,13 @@ class CharactersStore {
       description: 'super hero'
     }
   ];
+
+  @action
+  getCharacter = (id: string) => {
+    return this.characters.filter((ch) => {
+      return ch.id === id;
+    });
+  };
 
   constructor() {
     makeObservable(this);
