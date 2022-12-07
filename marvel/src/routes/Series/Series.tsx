@@ -1,13 +1,20 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import appStore from '../../stores/AppStore';
+import { ApiLink } from '../../types/apiLink';
+import CardLayout from '../../components/Card';
 
 function Series(): ReactElement {
+  useEffect(() => {
+    appStore?.getCards(ApiLink.series);
+  }, []);
   return (
     <>
-      {/* {SeriesStore.series.map((series) => ( */}
-      {/*  <Card {...series} /> */}
-      {/* ))} */}
+      {appStore.cards.map((data) => (
+        <CardLayout {...data} />
+      ))}
     </>
   );
 }
 
-export default Series;
+export default observer(Series);

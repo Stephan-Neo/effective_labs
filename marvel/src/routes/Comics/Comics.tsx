@@ -1,13 +1,20 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import CardLayout from '../../components/Card';
+import appStore from '../../stores/AppStore';
+import { ApiLink } from '../../types/apiLink';
 
 function Comics(): ReactElement {
+  useEffect(() => {
+    appStore?.getCards(ApiLink.comics);
+  }, []);
   return (
     <>
-      {/* {ComicsStore.comics.map((comics) => ( */}
-      {/*  <Card {...comics} /> */}
-      {/* ))} */}
+      {appStore.cards.map((data) => (
+        <CardLayout {...data} />
+      ))}
     </>
   );
 }
 
-export default Comics;
+export default observer(Comics);

@@ -82,7 +82,10 @@ function Details(ob: Card): ReactElement {
           <Title>{t('comics')}</Title>
           <LinkContainer>
             {comics.map((item) => (
-              <CLink to="/characters">{item.name}</CLink>
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              <CLink to={`/comics/${item.resourceURI.split('/').slice(-1)}`}>
+                {item.name}
+              </CLink>
             ))}
           </LinkContainer>
         </div>
@@ -90,7 +93,10 @@ function Details(ob: Card): ReactElement {
           <Title>{t('series')}</Title>
           <LinkContainer>
             {series.map((item) => (
-              <CLink to="/characters">{item.name}</CLink>
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              <CLink to={`/series/${item.resourceURI.split('/').slice(-1)}`}>
+                {item.name}
+              </CLink>
             ))}
           </LinkContainer>
         </div>

@@ -1,13 +1,14 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import Details from '../../../components/Details/Details';
 import appStore from '../../../stores/AppStore';
+import { ApiLink } from '../../../types/apiLink';
 
 function CharacterDetails(): ReactElement {
   const { id } = useParams();
   useEffect(() => {
-    appStore?.getCard('v1/public/characters', Number(id));
+    appStore?.getCard(ApiLink.characters, Number(id));
   }, []);
 
   return (

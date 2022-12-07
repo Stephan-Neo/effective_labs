@@ -2,16 +2,22 @@ import React, { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import appStore from '../../../stores/AppStore';
-import { Card } from '../../../types/card';
+import { ApiLink } from '../../../types/apiLink';
+import Details from '../../../components/Details/Details';
 
 function ComicDetails(): ReactElement {
   const { id } = useParams();
   useEffect(() => {
-    appStore?.getCard('v1/public/characters', Number(id));
+    appStore?.getCard(ApiLink.comics, Number(id));
   }, []);
 
-  // return <Details {...comic} />;
-  return <></>;
+  return (
+    <>
+      {appStore.card.map((data) => (
+        <Details {...data} />
+      ))}
+    </>
+  );
 }
 
 export default observer(ComicDetails);
