@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import AppStore from '../../stores/AppStore';
-import { Character } from '../../types/character';
+import { Card } from '../../types/card';
 import appStore from '../../stores/AppStore';
 
-function Details(ob: Character): ReactElement {
+function Details(ob: Card): ReactElement {
   const { t } = useTranslation();
   const { name, description, thumbnail } = ob;
   const comics = appStore.comicsLink;

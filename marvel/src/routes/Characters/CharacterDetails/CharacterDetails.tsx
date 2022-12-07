@@ -1,18 +1,18 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import charactersStore from '../../../stores/CharactersStore';
 import Details from '../../../components/Details/Details';
+import appStore from '../../../stores/AppStore';
 
 function CharacterDetails(): ReactElement {
   const { id } = useParams();
   useEffect(() => {
-    charactersStore?.getCharacter(Number(id));
+    appStore?.getCard('v1/public/characters', Number(id));
   }, []);
 
   return (
     <>
-      {charactersStore.character.map((data) => (
+      {appStore.card.map((data) => (
         <Details {...data} />
       ))}
     </>

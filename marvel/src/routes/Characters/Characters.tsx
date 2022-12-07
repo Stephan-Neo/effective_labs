@@ -1,16 +1,16 @@
 import React, { ReactElement, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import charactersStore from '../../stores/CharactersStore';
-import Card from '../../components/Card';
+import CardLayout from '../../components/Card';
+import appStore from '../../stores/AppStore';
 
 function Characters(): ReactElement {
   useEffect(() => {
-    charactersStore?.getCharacters();
+    appStore?.getCards('v1/public/characters');
   }, []);
   return (
     <>
-      {charactersStore.characters.map((data) => (
-        <Card {...data} />
+      {appStore.cards.map((data) => (
+        <CardLayout {...data} />
       ))}
     </>
   );

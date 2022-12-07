@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import AppStore from '../../stores/AppStore';
-import { Character } from '../../types/character';
+import { Card } from '../../types/card';
 
-function Card(character: Character): ReactElement {
+function CardLayout(character: Card): ReactElement {
   const { name, description, id, thumbnail } = character;
 
   const LinkDetails = styled(Link)<{ isDark: boolean }>`
@@ -62,4 +62,4 @@ function Card(character: Character): ReactElement {
   );
 }
 
-export default observer(Card);
+export default observer(CardLayout);
