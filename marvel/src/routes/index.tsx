@@ -9,6 +9,7 @@ import CardsLayout from '../layouts/CardsLayout';
 import CharacterDetails from './Characters/CharacterDetails';
 import ComicDetails from './Comics/ComicDetails';
 import SerieDetails from './Series/SerieDetails/SerieDetails';
+import NotFound from '../components/NotFound';
 
 function Routes(): ReactElement {
   return (
@@ -23,6 +24,7 @@ function Routes(): ReactElement {
         <Route path="characters/:id" element={<CharacterDetails />} />
         <Route path="comics/:id" element={<ComicDetails />} />
         <Route path="series/:id" element={<SerieDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </CRoutes>
   );
