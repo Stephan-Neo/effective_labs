@@ -6,7 +6,7 @@ import { ApiLink } from '../../types/apiLink';
 
 function Characters(): ReactElement {
   useEffect(() => {
-    appStore?.getCards(ApiLink.characters);
+    appStore?.getCards(ApiLink.characters, 0);
   }, []);
   return (
     <>

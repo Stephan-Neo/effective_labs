@@ -6,7 +6,7 @@ import CardLayout from '../../components/Card';
 
 function Series(): ReactElement {
   useEffect(() => {
-    appStore?.getCards(ApiLink.series);
+    appStore?.getCards(ApiLink.series, 0);
   }, []);
   return (
     <>

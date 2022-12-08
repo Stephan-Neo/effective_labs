@@ -3,15 +3,13 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import AppStore from '../../stores/AppStore';
-import { Card } from '../../types/card';
 import appStore from '../../stores/AppStore';
+import { Card } from '../../types/card';
 
 function Details(ob: Card): ReactElement {
   const { t } = useTranslation();
-  const { name, description, thumbnail } = ob;
-  const comics = appStore.comicsLink;
-  const series = appStore.seriesLink;
+  const { name, description, thumbnail, title, series, comics, characters } =
+    ob;
 
   const Wrapepr = styled.div`
     color: white;
@@ -65,6 +63,10 @@ function Details(ob: Card): ReactElement {
     margin-right: 30px;
   `;
 
+  const LinkWrapper = styled.div<{ isPage: boolean }>`
+    display: ${({ isPage }) => (isPage ? 'block' : 'none')};
+  `;
+
   const CLink = styled(Link)`
     color: #0984e3;
     margin-bottom: 20px;
@@ -75,31 +77,81 @@ function Details(ob: Card): ReactElement {
       <Image />
       <Container>
         <MainPart>
-          <TitleMain>{name}</TitleMain>
-          <Description isDark={AppStore.isDark}>{description}</Description>
+          <TitleMain>{name || title}</TitleMain>
+          <Description isDark={appStore.isDark}>{description}</Description>
         </MainPart>
-        <div>
+        <LinkWrapper isPage={!characters}>
           <Title>{t('comics')}</Title>
           <LinkContainer>
-            {comics.map((item) => (
+            {comics?.items?.map((item) => (
               // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
               <CLink to={`/comics/${item.resourceURI.split('/').slice(-1)}`}>
                 {item.name}
               </CLink>
             ))}
           </LinkContainer>
-        </div>
-        <div>
+        </LinkWrapper>
+        <LinkWrapper isPage={!characters}>
           <Title>{t('series')}</Title>
           <LinkContainer>
-            {series.map((item) => (
+            {series?.items?.map((item) => (
               // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
               <CLink to={`/series/${item.resourceURI.split('/').slice(-1)}`}>
                 {item.name}
               </CLink>
             ))}
           </LinkContainer>
-        </div>
+        </LinkWrapper>
+
+        <LinkWrapper isPage={!comics}>
+          <Title>{t('characters')}</Title>
+          <LinkContainer>
+            {characters?.items?.map((item) => (
+              <CLink
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                to={`/characters/${item.resourceURI.split('/').slice(-1)}`}
+              >
+                {item.name}
+              </CLink>
+            ))}
+          </LinkContainer>
+        </LinkWrapper>
+        <LinkWrapper isPage={!comics}>
+          <Title>{t('series')}</Title>
+          <LinkContainer>
+            {series?.items?.map((item) => (
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              <CLink to={`/series/${item.resourceURI.split('/').slice(-1)}`}>
+                {item.name}
+              </CLink>
+            ))}
+          </LinkContainer>
+        </LinkWrapper>
+
+        <LinkWrapper isPage={!series}>
+          <Title>{t('characters')}</Title>
+          <LinkContainer>
+            {characters?.items?.map((item) => (
+              <CLink
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                to={`/characters/${item.resourceURI.split('/').slice(-1)}`}
+              >
+                {item.name}
+              </CLink>
+            ))}
+          </LinkContainer>
+        </LinkWrapper>
+        <LinkWrapper isPage={!series}>
+          <Title>{t('comics')}</Title>
+          <LinkContainer>
+            {comics?.items?.map((item) => (
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              <CLink to={`/comics/${item.resourceURI.split('/').slice(-1)}`}>
+                {item.name}
+              </CLink>
+            ))}
+          </LinkContainer>
+        </LinkWrapper>
       </Container>
     </Wrapepr>
   );

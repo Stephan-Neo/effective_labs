@@ -10,12 +10,20 @@ export interface CardResponse {
   };
 }
 
-export const getCards = (url: string) =>
-  axios.get<CardResponse>(`${url}`, {
+export const getCards = async (
+  url: string,
+  offset: number
+): Promise<Card[]> => {
+  const res = await axios.get<CardResponse>(`${url}`, {
     params: {
-      limit: 10
+      limit: 10,
+      offset
     }
   });
+  return res.data.data.results;
+};
 
-export const getCard = (url: string, id: number) =>
-  axios.get<CardResponse>(`${url}/${id}`);
+export const getCard = async (url: string, id: number): Promise<Card[]> => {
+  const res = await axios.get<CardResponse>(`${url}/${id}`);
+  return res.data.data.results;
+};

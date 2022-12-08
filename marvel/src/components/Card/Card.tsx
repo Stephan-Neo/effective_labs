@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import AppStore from '../../stores/AppStore';
 import { Card } from '../../types/card';
 
-function CardLayout(character: Card): ReactElement {
-  const { name, description, id, thumbnail } = character;
+function CardLayout(data: Card): ReactElement {
+  const { name, description, id, thumbnail, title } = data;
 
   const LinkDetails = styled(Link)<{ isDark: boolean }>`
     background-color: ${({ isDark }) => (isDark ? '#21262f' : 'white')};
@@ -55,7 +55,7 @@ function CardLayout(character: Card): ReactElement {
     <LinkDetails to={`${id}`} key={id} isDark={AppStore.isDark}>
       <Image />
       <Info>
-        <Title>{name}</Title>
+        <Title>{name || title}</Title>
         <Description isDark={AppStore.isDark}>{description}</Description>
       </Info>
     </LinkDetails>
