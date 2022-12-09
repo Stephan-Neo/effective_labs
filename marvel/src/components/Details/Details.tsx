@@ -54,6 +54,7 @@ function Details(ob: Card): ReactElement {
     margin-top: 20px;
     font-size: 25px;
     color: ${({ isDark }) => (isDark ? 'white' : 'black')};
+    line-height: 40px;
   `;
 
   const LinkContainer = styled.div`

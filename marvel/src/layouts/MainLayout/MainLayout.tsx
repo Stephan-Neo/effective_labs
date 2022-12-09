@@ -8,7 +8,6 @@ import appStore from '../../stores/AppStore';
 
 function MainLayout(): ReactElement {
   const { t } = useTranslation();
-  const { isLoaded } = appStore;
   const Wrapper = styled.div<{ isDark: boolean }>`
     width: 100%;
     min-height: 100%;
@@ -157,7 +156,9 @@ function MainLayout(): ReactElement {
           />
         </Navigate>
       </Header>
-      <Content>{isLoaded ? <div>...Loading</div> : <Outlet />}</Content>
+      <Content>
+        <Outlet />
+      </Content>
       <Footer isDark={appStore.isDark}>
         <LogoFooter src="/marvel_logo.svg" alt="" />
         <div>

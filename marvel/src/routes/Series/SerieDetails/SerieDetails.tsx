@@ -1,19 +1,27 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import appStore from '../../../stores/AppStore';
+import cardsStore from '../../../stores/CardsStore';
 import { ApiLink } from '../../../types/apiLink';
 import Details from '../../../components/Details/Details';
+import { getCard } from '../../../api/Card';
 
 function SerieDetails(): ReactElement {
   const { id } = useParams();
   useEffect(() => {
-    appStore?.getCard(ApiLink.series, Number(id));
+    getCard(ApiLink.series, Number(id))
+      .then((res) => {
+        cardsStore.setCard(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    document.documentElement.scroll(0, 0);
   }, []);
 
   return (
     <>
-      {appStore.card.map((data) => (
+      {cardsStore.card.map((data) => (
         <Details {...data} />
       ))}
     </>

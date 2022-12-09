@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import AppStore from '../../stores/AppStore';
+import appStore from '../../stores/AppStore';
 import { Card } from '../../types/card';
 
 function CardLayout(data: Card): ReactElement {
@@ -52,11 +52,11 @@ function CardLayout(data: Card): ReactElement {
     color: ${({ isDark }) => (isDark ? 'white' : 'black')};
   `;
   return (
-    <LinkDetails to={`${id}`} key={id} isDark={AppStore.isDark}>
+    <LinkDetails to={`${id}`} key={id} isDark={appStore.isDark}>
       <Image />
       <Info>
         <Title>{name || title}</Title>
-        <Description isDark={AppStore.isDark}>{description}</Description>
+        <Description isDark={appStore.isDark}>{description}</Description>
       </Info>
     </LinkDetails>
   );
