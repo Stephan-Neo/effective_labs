@@ -11,6 +11,7 @@ function CardLayout(data: Card): ReactElement {
   const LinkDetails = styled(Link)<{ isDark: boolean }>`
     background-color: ${({ isDark }) => (isDark ? '#21262f' : 'white')};
     display: flex;
+
     height: 400px;
     flex-direction: column;
     -webkit-box-shadow: 0 5px 8px 10px rgba(34, 60, 80, 0.2);
