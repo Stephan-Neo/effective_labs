@@ -1,16 +1,31 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import CharactersStore from '../../../stores/CharactersStore';
 import Details from '../../../components/Details/Details';
-import { Side } from '../../../types/side';
+import { ApiLink } from '../../../types/apiLink';
+import { getCard } from '../../../api/Card';
+import cardsStore from '../../../stores/CardsStore';
 
 function CharacterDetails(): ReactElement {
   const { id } = useParams();
+  useEffect(() => {
+    getCard(ApiLink.characters, Number(id))
+      .then((res) => {
+        cardsStore.setCard(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    document.documentElement.scroll(0, 0);
+  }, []);
 
-  const character: Side = CharactersStore.getCharacter(id || '')[0];
-
-  return <Details {...character} />;
+  return (
+    <>
+      {cardsStore.card.map((data) => (
+        <Details {...data} />
+      ))}
+    </>
+  );
 }
 
 export default observer(CharacterDetails);

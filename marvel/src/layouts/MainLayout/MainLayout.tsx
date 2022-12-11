@@ -4,13 +4,13 @@ import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { setLanguage } from '../../localization';
-import AppStore from '../../stores/AppStore';
+import appStore from '../../stores/AppStore';
 
 function MainLayout(): ReactElement {
   const { t } = useTranslation();
   const Wrapper = styled.div<{ isDark: boolean }>`
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-color: ${({ isDark }) => (isDark ? '#303845' : 'white')};
     display: flex;
     flex-direction: column;
@@ -29,8 +29,10 @@ function MainLayout(): ReactElement {
   `;
 
   const Content = styled.div`
-    height: 100%;
+    min-height: 100ch;
     width: 100%;
+    display: flex;
+    flex-direction: column;
   `;
 
   const HeaderLink = styled(NavLink)`
@@ -117,8 +119,8 @@ function MainLayout(): ReactElement {
     }
   `;
   return (
-    <Wrapper isDark={AppStore.isDark}>
-      <Header isDark={AppStore.isDark}>
+    <Wrapper isDark={appStore.isDark}>
+      <Header isDark={appStore.isDark}>
         <div>
           <Link to="/">
             <LogoHeader src="/marvel_logo.svg" alt="" />
@@ -145,11 +147,11 @@ function MainLayout(): ReactElement {
             </ButtonLanguageEu>
           </ChangeLanguage>
           <ChangeTheme
-            isDark={AppStore.isDark}
+            isDark={appStore.isDark}
             onClick={() =>
-              AppStore.isDark
-                ? AppStore.setTheme(false)
-                : AppStore.setTheme(true)
+              appStore.isDark
+                ? appStore.setTheme(false)
+                : appStore.setTheme(true)
             }
           />
         </Navigate>
@@ -157,7 +159,7 @@ function MainLayout(): ReactElement {
       <Content>
         <Outlet />
       </Content>
-      <Footer isDark={AppStore.isDark}>
+      <Footer isDark={appStore.isDark}>
         <LogoFooter src="/marvel_logo.svg" alt="" />
         <div>
           <p>{t('byMarvel')}</p>
