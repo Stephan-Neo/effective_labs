@@ -20,13 +20,13 @@ function Characters(): ReactElement {
 
   const [offset, setOffset] = useState(0);
   const [startSearch, setStartSearch] = useState(0);
-  const [search, setSearch] = useState('a');
+  const [search, setSearch] = useState('');
   const [isRemoteCards, setIsRemoteCards] = useState(true);
   const [countCards, setCountCards] = useState(0);
   const [error, setError] = useState<string>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setSearch(data.example || 'a');
+    setSearch(data.example);
     setOffset(0);
     cardsStore.clearCards();
     setStartSearch(startSearch + 1);
@@ -40,19 +40,35 @@ function Characters(): ReactElement {
   useEffect(() => {
     setIsRemoteCards(true);
     setError('');
-    getCards(ApiLink.characters, offset, search)
-      .then((res) => {
-        cardsStore.setCards(res);
-        if (!res.length && countCards === 0) {
-          setIsRemoteCards(false);
-        }
-        if (res.length) {
-          setCountCards(countCards + 10);
-        }
-      })
-      .catch((e: RangeError) => {
-        setError(e.message);
-      });
+    if (search) {
+      getCards(ApiLink.characters, offset, search)
+        .then((res) => {
+          cardsStore.setCards(res);
+          if (!res.length && countCards === 0) {
+            setIsRemoteCards(false);
+          }
+          if (res.length) {
+            setCountCards(countCards + 10);
+          }
+        })
+        .catch((e: RangeError) => {
+          setError(e.message);
+        });
+    } else {
+      getCards(ApiLink.characters, offset)
+        .then((res) => {
+          cardsStore.setCards(res);
+          if (!res.length && countCards === 0) {
+            setIsRemoteCards(false);
+          }
+          if (res.length) {
+            setCountCards(countCards + 10);
+          }
+        })
+        .catch((e: RangeError) => {
+          setError(e.message);
+        });
+    }
 
     const handlerScroll = () => {
       const { scrollHeight } = document.documentElement;
