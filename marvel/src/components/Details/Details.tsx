@@ -5,11 +5,25 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import appStore from '../../stores/AppStore';
 import { Card } from '../../types/card';
+import cardsStore from '../../stores/CardsStore';
 
 function Details(ob: Card): ReactElement {
   const { t } = useTranslation();
-  const { name, description, thumbnail, title, series, comics, characters } =
-    ob;
+  const {
+    id,
+    name,
+    description,
+    thumbnail,
+    title,
+    series,
+    comics,
+    characters
+  } = ob;
+
+  const onLike = () => {
+    cardsStore.setLikeCard(ob);
+    appStore.setLikes(id);
+  };
 
   const Image = styled.div`
     width: 100%;
@@ -20,7 +34,9 @@ function Details(ob: Card): ReactElement {
 
   return (
     <Wrapepr>
-      <Image />
+      <Image>
+        <Like likeId={id} likes={appStore.likes} onClick={onLike} />
+      </Image>
       <Container>
         <MainPart>
           <TitleMain>{name || title}</TitleMain>
@@ -157,6 +173,24 @@ const CLink = styled(Link)`
   color: #0984e3;
   margin-bottom: 20px;
   font-size: 20px;
+`;
+
+const Like = styled.div<{ likeId: number; likes: number[] }>`
+  z-index: 100;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  margin: 20px 20px 0 0;
+  :hover {
+    cursor: pointer;
+  }
+  background: ${({ likeId, likes }) => {
+    if (likes.includes(likeId)) {
+      return 'url(../../like.ico) 50% / cover no-repeat';
+    }
+    return 'url(../../heart-default.ico) 50% / cover no-repeat';
+  }};
 `;
 
 export default observer(Details);

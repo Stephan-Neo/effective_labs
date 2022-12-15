@@ -9,6 +9,7 @@ import CharacterDetails from './Characters/CharacterDetails';
 import ComicDetails from './Comics/ComicDetails';
 import SerieDetails from './Series/SerieDetails/SerieDetails';
 import NotFound from '../components/NotFound';
+import Favorites from './Favorites';
 
 function Routes(): ReactElement {
   return (
@@ -17,6 +18,7 @@ function Routes(): ReactElement {
         <Route path="characters" element={<Characters />} />
         <Route path="comics" element={<Comics />} />
         <Route path="series" element={<Series />} />
+        <Route path="favorites" element={<Favorites />} />
         <Route path="/" element={<Main />} />
         <Route path="characters/:id" element={<CharacterDetails />} />
         <Route path="comics/:id" element={<ComicDetails />} />

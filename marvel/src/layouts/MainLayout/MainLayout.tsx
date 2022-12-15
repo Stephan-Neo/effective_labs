@@ -1,13 +1,21 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { setLanguage } from '../../localization';
 import appStore from '../../stores/AppStore';
+import cardsStore from '../../stores/CardsStore';
 
 function MainLayout(): ReactElement {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    appStore.uploadLikes(JSON.parse(localStorage.getItem('likes') || '[]'));
+    cardsStore.uploadLikeCards(
+      JSON.parse(localStorage.getItem('likeCards') || '[]')
+    );
+  }, []);
   return (
     <Wrapper isDark={appStore.isDark}>
       <Header isDark={appStore.isDark}>
@@ -20,6 +28,7 @@ function MainLayout(): ReactElement {
           <HeaderLink to="characters">{t('characters')}</HeaderLink>
           <HeaderLink to="comics">{t('comics')}</HeaderLink>
           <HeaderLink to="series">{t('series')}</HeaderLink>
+          <HeaderLink to="favorites">{t('favorites')}</HeaderLink>
           <ChangeLanguage>
             <ButtonLanguageRu
               type="button"
