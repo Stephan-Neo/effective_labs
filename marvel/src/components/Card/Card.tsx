@@ -109,7 +109,6 @@ const Image = styled.div<{ path: string; extension: string }>`
 `;
 
 const Like = styled.div<{ likeId: number; likes: number[] }>`
-  z-index: 100;
   width: 50px;
   height: 50px;
   position: absolute;
@@ -119,9 +118,9 @@ const Like = styled.div<{ likeId: number; likes: number[] }>`
   }
   background: ${({ likeId, likes }) => {
     if (likes.includes(likeId)) {
-      return 'url(./like.ico) 50% / cover no-repeat';
+      return 'url(../../../public/like.ico) 50% / cover no-repeat';
     }
-    return 'url(./heart-default.ico) 50% / cover no-repeat';
+    return 'url(../../../public/heart-default.ico) 50% / cover no-repeat';
   }};
 `;
 

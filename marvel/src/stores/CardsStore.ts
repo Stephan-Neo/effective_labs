@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { Card } from '../types/card';
+import appStore from './AppStore';
 
 class CardsStore {
   @observable
@@ -29,8 +30,8 @@ class CardsStore {
 
   @action
   setLikeCard = (card: Card) => {
-    if (this.likesCard.includes(card)) {
-      this.likesCard = [...this.likesCard.filter((c) => c !== card)];
+    if (appStore.likes.includes(card.id)) {
+      this.likesCard = [...this.likesCard.filter((c) => c.id !== card.id)];
       localStorage.setItem('likeCards', JSON.stringify(this.likesCard));
       return;
     }
