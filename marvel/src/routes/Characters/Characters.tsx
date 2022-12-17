@@ -14,7 +14,7 @@ function Characters(): ReactElement {
 
   const [offset, setOffset] = useState(0);
   const [startSearch, setStartSearch] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(undefined);
   const [isRemoteCards, setIsRemoteCards] = useState(true);
   const [countCards, setCountCards] = useState(0);
   const [error, setError] = useState<string>();
@@ -24,7 +24,16 @@ function Characters(): ReactElement {
   };
 
   const debouncedSearch = debounce((data) => {
-    setSearch(data);
+    if (data) {
+      setSearch(data);
+      setOffset(0);
+      cardsStore.clearCards();
+      setStartSearch(startSearch + 1);
+      setCountCards(0);
+      return;
+    }
+
+    setSearch(undefined);
     setOffset(0);
     cardsStore.clearCards();
     setStartSearch(startSearch + 1);
@@ -44,35 +53,19 @@ function Characters(): ReactElement {
   useEffect(() => {
     setIsRemoteCards(true);
     setError('');
-    if (search) {
-      getCards(ApiLink.characters, offset, search)
-        .then((res) => {
-          cardsStore.setCards(res);
-          if (!res.length && countCards === 0) {
-            setIsRemoteCards(false);
-          }
-          if (res.length) {
-            setCountCards(countCards + 10);
-          }
-        })
-        .catch((e: RangeError) => {
-          setError(e.message);
-        });
-    } else {
-      getCards(ApiLink.characters, offset)
-        .then((res) => {
-          cardsStore.setCards(res);
-          if (!res.length && countCards === 0) {
-            setIsRemoteCards(false);
-          }
-          if (res.length) {
-            setCountCards(countCards + 10);
-          }
-        })
-        .catch((e: RangeError) => {
-          setError(e.message);
-        });
-    }
+    getCards(ApiLink.characters, offset, search)
+      .then((res) => {
+        cardsStore.setCards(res);
+        if (!res.length && countCards === 0) {
+          setIsRemoteCards(false);
+        }
+        if (res.length) {
+          setCountCards(countCards + 10);
+        }
+      })
+      .catch((e: RangeError) => {
+        setError(e.message);
+      });
 
     const handlerScroll = () => {
       const { scrollHeight } = document.documentElement;
@@ -101,7 +94,7 @@ function Characters(): ReactElement {
               ))}
             </Wrapper>
           ) : (
-            <Error text={`Nothing was found for the ${search} query!`} />
+            <Error text={`Nothing was found for the ${search || ''} query!`} />
           )}
         </>
       ) : (
