@@ -14,7 +14,7 @@ function Series(): ReactElement {
 
   const [offset, setOffset] = useState(0);
   const [startSearch, setStartSearch] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(undefined);
   const [isRemoteCards, setIsRemoteCards] = useState(true);
   const [countCards, setCountCards] = useState(0);
   const [error, setError] = useState<string>();
@@ -24,7 +24,16 @@ function Series(): ReactElement {
   };
 
   const debouncedSearch = debounce((data) => {
-    setSearch(data);
+    if (data) {
+      setSearch(data);
+      setOffset(0);
+      cardsStore.clearCards();
+      setStartSearch(startSearch + 1);
+      setCountCards(0);
+      return;
+    }
+
+    setSearch(undefined);
     setOffset(0);
     cardsStore.clearCards();
     setStartSearch(startSearch + 1);
@@ -101,7 +110,7 @@ function Series(): ReactElement {
               ))}
             </Wrapper>
           ) : (
-            <Error text={`Nothing was found for the ${search} query!`} />
+            <Error text={`Nothing was found for the ${search || ''} query!`} />
           )}
         </>
       ) : (
