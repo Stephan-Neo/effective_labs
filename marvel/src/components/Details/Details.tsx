@@ -187,9 +187,9 @@ const Like = styled.div<{ likeId: number; likes: number[] }>`
   }
   background: ${({ likeId, likes }) => {
     if (likes.includes(likeId)) {
-      return 'url(../../like.ico) 50% / cover no-repeat';
+      return 'url(/like.ico) 50% / cover no-repeat';
     }
-    return 'url(../../heart-default.ico) 50% / cover no-repeat';
+    return 'url(/heart-default.ico) 50% / cover no-repeat';
   }};
 `;
 
